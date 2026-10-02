@@ -6,7 +6,7 @@ Everything here is fictional: the center (Juniper Hill Early Learning, Washingto
 
 **What it does and how it works:** see [WRITEUP.md](WRITEUP.md). It covers the parent and operator experiences, the architecture, and the design decisions.
 
-## Run it
+## Running it locally
 
 ```bash
 npm install
@@ -20,9 +20,10 @@ To check answer quality after changing the prompt or the handbook, run `npm run 
 
 ## Where things live
 
-Handbook: [lib/seed.ts](lib/seed.ts). 
-Prompt and output schema: [lib/prompt.ts](lib/prompt.ts). 
-Answer route: [app/api/ask/route.ts](app/api/ask/route.ts). 
-Teach-from-reply route: [app/api/draft-entry/route.ts](app/api/draft-entry/route.ts). 
-Emergency check: [lib/emergency.ts](lib/emergency.ts). 
-UI: [components/](components/).
+- Handbook: [lib/seed.ts](lib/seed.ts)
+- Prompt and output schema: [lib/prompt.ts](lib/prompt.ts)
+- Answer route: [app/api/ask/route.ts](app/api/ask/route.ts)
+- Teach-from-reply route: [app/api/draft-entry/route.ts](app/api/draft-entry/route.ts)
+- Emergency check: [lib/emergency.ts](lib/emergency.ts)
+- Allergy cross-check: [lib/allergy.ts](lib/allergy.ts)
+- UI: [components/](components/)
