@@ -78,4 +78,25 @@ export const SearchIcon = svg(
   </>,
 );
 export const ChevronIcon = svg(<path d="m9 6 6 6-6 6" />);
+export const BackIcon = svg(<path d="m15 6-6 6 6 6" />);
+export const PinIcon = svg(
+  <>
+    <path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z" />
+    <circle cx="12" cy="9" r="2.5" />
+  </>,
+);
+export const ClockIcon = svg(
+  <>
+    <circle cx="12" cy="12" r="9" />
+    <path d="M12 7v5l3 2" />
+  </>,
+);
+export const MealIcon = svg(<path d="M7 3v8a2 2 0 0 0 2 2v8M11 3v8M7 7h4M17 3c-2 0-3 2.5-3 6s1.5 4 3 4v8" />);
+export const StarIcon = svg(<path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z" />);
+export const InfoIcon = svg(
+  <>
+    <circle cx="12" cy="12" r="9" />
+    <path d="M12 11v6M12 7.5h.01" />
+  </>,
+);
 export const ResetIcon = svg(<path d="M4 4v6h6M4.5 15a8 8 0 1 0 1.9-8.3L4 10" />);

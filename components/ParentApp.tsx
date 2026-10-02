@@ -5,6 +5,7 @@ import { CENTER, FAMILIES } from "@/lib/seed";
 import { useStore } from "@/lib/store";
 import { nextTourSlots, shortDate } from "@/lib/time";
 import { MEAL_NAMES } from "@/lib/allergy";
+import { JuniAvatar, ParentHome, SchoolInfoScreen, ScreenHeader } from "./ParentHome";
 import type { AllergyCheck, ChatMessage, KnowledgeEntry } from "@/lib/types";
 import {
   AlertIcon,
@@ -39,15 +40,21 @@ const STARTERS: Record<string, string[]> = {
   ],
 };
 
+type View = "home" | "chat" | "info";
+
 export function ParentApp() {
   const { family, chats, pending, ask, setFamily } = useStore();
   const messages = chats[family.id] ?? [];
   const [draft, setDraft] = useState("");
   const scrollRef = useRef<HTMLDivElement>(null);
+  // Each family starts on the landing screen; switching families returns there.
+  const [nav, setNav] = useState<{ familyId: string; view: View }>({ familyId: family.id, view: "home" });
+  const view = nav.familyId === family.id ? nav.view : "home";
+  const go = (v: View) => setNav({ familyId: family.id, view: v });
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
-  }, [messages.length, pending]);
+  }, [messages.length, pending, view]);
 
   const submit = (text: string) => {
     const q = text.trim();
@@ -66,10 +73,7 @@ export function ParentApp() {
           </div>
           <div className="min-w-0 flex-1">
             <div className="truncate font-semibold text-slate-900">{CENTER.name}</div>
-            <div className="flex items-center gap-1.5 text-xs text-slate-500">
-              <span className="h-1.5 w-1.5 rounded-full bg-brand-500" />
-              Front desk · answers instantly, staff on call
-            </div>
+            <div className="truncate text-xs text-slate-500">{CENTER.city}</div>
           </div>
         </div>
         <label className="mt-3 flex items-center gap-2 rounded-xl bg-slate-100 px-3 py-1.5 text-xs text-slate-600">
@@ -88,18 +92,30 @@ export function ParentApp() {
         </label>
       </div>
 
-      {/* Conversation */}
-      <div ref={scrollRef} className="min-h-0 flex-1 space-y-4 overflow-y-auto px-4 py-5">
-        {messages.length === 0 && (
-          <Welcome name={family.parentName.split(" ")[0]} starters={STARTERS[family.id]} onPick={submit} />
-        )}
-        {messages.map((m) => (
-          <Message key={m.id} m={m} onAsk={submit} />
-        ))}
-        {pending && <Typing />}
-      </div>
+      {view === "home" && <ParentHome onChat={() => go("chat")} onInfo={() => go("info")} />}
 
-      <Composer draft={draft} setDraft={setDraft} onSubmit={submit} disabled={pending} />
+      {view === "info" && <SchoolInfoScreen onBack={() => go("home")} onChat={() => go("chat")} />}
+
+      {view === "chat" && (
+        <>
+          <ScreenHeader
+            title={CENTER.assistantName}
+            subtitle={`AI assistant · staff on call`}
+            onBack={() => go("home")}
+            icon={<JuniAvatar className="h-8 w-8 bg-brand-700 text-white" />}
+          />
+          <div ref={scrollRef} className="min-h-0 flex-1 space-y-4 overflow-y-auto px-4 py-5">
+            {messages.length === 0 && (
+              <Welcome name={family.parentName.split(" ")[0]} starters={STARTERS[family.id]} onPick={submit} />
+            )}
+            {messages.map((m) => (
+              <Message key={m.id} m={m} onAsk={submit} />
+            ))}
+            {pending && <Typing />}
+          </div>
+          <Composer draft={draft} setDraft={setDraft} onSubmit={submit} disabled={pending} />
+        </>
+      )}
     </div>
   );
 }
@@ -107,10 +123,12 @@ export function ParentApp() {
 function Welcome({ name, starters, onPick }: { name: string; starters: string[]; onPick: (q: string) => void }) {
   return (
     <div className="pt-2">
-      <h2 className="font-display text-2xl text-slate-900">Hi {name}, how can we help?</h2>
+      <h2 className="font-display text-2xl text-slate-900">
+        Hi {name}, I&apos;m {CENTER.assistantName}.
+      </h2>
       <p className="mt-1.5 text-sm leading-relaxed text-slate-600">
-        Ask about hours, illness rules, menus, billing, or pickup. Answers come straight from the Juniper Hill
-        handbook, and anything I&apos;m unsure about goes to {CENTER.director}.
+        Ask me about hours, illness rules, menus, billing, or pickup. My answers come straight from the{" "}
+        {CENTER.short} handbook, and anything I&apos;m unsure about goes to {CENTER.director}.
       </p>
       <div className="mt-5 space-y-2">
         {starters.map((s) => (
@@ -139,7 +157,7 @@ function Typing() {
           />
         ))}
       </div>
-      Checking the handbook…
+      {CENTER.assistantName} is checking the handbook…
     </div>
   );
 }
@@ -487,7 +505,7 @@ function Composer({
             }
           }}
           rows={1}
-          placeholder={listening ? "Listening…" : "Ask the front desk…"}
+          placeholder={listening ? "Listening…" : `Ask ${CENTER.assistantName}…`}
           className="max-h-28 min-h-[36px] flex-1 resize-none bg-transparent py-2 text-[15px] text-slate-800 outline-none placeholder:text-slate-400"
         />
         {speechCtor && (

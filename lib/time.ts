@@ -9,10 +9,22 @@ function centerParts(date: Date) {
     month: "2-digit",
     day: "2-digit",
     hour: "2-digit",
+    minute: "2-digit",
     hourCycle: "h23",
     weekday: "short",
   }).formatToParts(date);
   return Object.fromEntries(parts.map((p) => [p.type, p.value])) as Record<string, string>;
+}
+
+/** Calendar date and time at the center (not in the viewer's timezone). */
+export function centerDay(date: Date) {
+  const p = centerParts(date);
+  return {
+    ymd: `${p.year}-${p.month}-${p.day}`,
+    weekday: p.weekday, // "Mon"…"Sun"
+    hour: Number(p.hour),
+    minute: Number(p.minute),
+  };
 }
 
 /**

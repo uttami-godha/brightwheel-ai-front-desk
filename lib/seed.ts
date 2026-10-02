@@ -12,7 +12,23 @@ export const CENTER = {
   directorInitials: "UG",
   directorTitle: "Director",
   replyWindow: "within 2 hours during school hours",
+  assistantName: "Juni",
+  address: "4200 Juniper Lane NW, Washington, DC 20011",
+  neighborhood: "Petworth",
+  hours: "Monday–Friday, 7:00 AM – 6:00 PM",
+  openHour: 7,
+  closeHour: 18,
 };
+
+/** Shown on the School Info screen; one per day, rotating. */
+export const FUN_FACTS = [
+  "Juniper Hill is named after the juniper tree in our play yard, planted the year the center opened.",
+  "The Owls (Pre-K) are growing sunflowers by the front gate. The tallest is 5 ft 2 in and still going.",
+  "This month the Bumblebees learned to say “thank you” in four languages: English, Spanish, Amharic, and Mandarin.",
+  "Chef Rosa's sweet potato wedges are the most-requested backup lunch of the year.",
+  "Our kitchen goes through about 60 bananas a week. The Ladybugs have opinions about ripeness.",
+  "The Dragonflies' worm farm has a population of roughly 200 and a name for each of the 12 biggest.",
+];
 
 const by = "Uttami Godha";
 

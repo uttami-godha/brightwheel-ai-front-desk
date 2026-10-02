@@ -6,7 +6,8 @@
  *   npx tsx scripts/eval.ts [baseUrl]
  */
 import { FAMILIES, SEED_KNOWLEDGE } from "../lib/seed";
-import { demoNow } from "../lib/time";
+// Pinned so date-dependent expectations (today's menu, return days) hold whenever this runs.
+const EVAL_NOW = "2026-10-01T08:15:00-04:00"; // Thursday, 8:15 AM Eastern
 import type { Engine, FrontDeskAnswer } from "../lib/types";
 
 const BASE = process.argv[2] ?? "http://localhost:3000";
@@ -58,7 +59,7 @@ async function main() {
         allergies: fam.allergies,
         knowledge: SEED_KNOWLEDGE,
         history: [],
-        now: demoNow("morning").toISOString(),
+        now: EVAL_NOW,
       }),
     });
     const { result, engine } = (await res.json()) as { result: FrontDeskAnswer; engine: Engine };
