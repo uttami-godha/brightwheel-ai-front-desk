@@ -4,7 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { CENTER, FAMILIES } from "@/lib/seed";
 import { useStore } from "@/lib/store";
 import { nextTourSlots, shortDate } from "@/lib/time";
-import type { ChatMessage, KnowledgeEntry } from "@/lib/types";
+import { MEAL_NAMES } from "@/lib/allergy";
+import type { AllergyCheck, ChatMessage, KnowledgeEntry } from "@/lib/types";
 import {
   AlertIcon,
   BookIcon,
@@ -221,6 +222,8 @@ function AssistantMessage({
         {sources.length > 0 && <Sources sources={sources} />}
       </div>
 
+      {r.allergy_check && <AllergyCard check={r.allergy_check} />}
+
       {handedOff && (
         <div className="flex items-start gap-2 rounded-xl bg-amber-50 px-3 py-2 text-xs leading-snug text-amber-900 ring-1 ring-amber-200">
           <PersonIcon />
@@ -290,6 +293,51 @@ function AssistantMessage({
 
 function PersonIcon() {
   return <AlertIcon className="mt-0.5 h-3.5 w-3.5 text-amber-600" />;
+}
+
+/**
+ * Result of the deterministic allergen check (lib/allergy.ts). Shown separately
+ * from the AI's words so parents can see it was checked against the menu labels.
+ */
+function AllergyCard({ check }: { check: AllergyCheck }) {
+  const conflicts = check.checked.filter((c) => c.conflicts.length);
+  const unknown = check.checked.filter((c) => c.contains === null);
+  const tone = conflicts.length
+    ? "bg-rose-50 text-rose-950 ring-rose-200"
+    : unknown.length
+      ? "bg-amber-50 text-amber-950 ring-amber-200"
+      : "bg-juniper-50 text-juniper-900 ring-juniper-100";
+  const day = (d: string) => d[0].toUpperCase() + d.slice(1, 3);
+
+  return (
+    <div className={`rounded-xl px-3 py-2.5 text-xs leading-snug ring-1 ${tone}`}>
+      <div className="mb-1.5 flex items-center gap-1.5 font-semibold">
+        {conflicts.length || unknown.length ? <AlertIcon className="h-3.5 w-3.5" /> : <CheckIcon className="h-3.5 w-3.5" />}
+        Allergy check · {check.childName} ({check.allergies.join(", ")})
+      </div>
+      <ul className="space-y-1">
+        {check.checked.map((c) => (
+          <li key={`${c.day}-${c.meal}`}>
+            <span className="font-medium">
+              {day(c.day)} {MEAL_NAMES[c.meal].toLowerCase()}:
+            </span>{" "}
+            {c.item} —{" "}
+            {c.contains === null ? (
+              <strong>allergens not listed, can&apos;t verify</strong>
+            ) : c.conflicts.length ? (
+              <strong>contains {c.conflicts.join(" & ")}</strong>
+            ) : (
+              <>no {check.allergies.join(" or ")}</>
+            )}
+          </li>
+        ))}
+      </ul>
+      <div className="mt-1.5 opacity-70">
+        Checked against the menu&apos;s allergen labels, not by AI.
+        {(check.answerMissedConflict || unknown.length > 0) && ` ${CENTER.directorFirst} has been asked to confirm.`}
+      </div>
+    </div>
+  );
 }
 
 /** Source chips: tap to see the exact handbook text the answer came from. */

@@ -166,13 +166,30 @@ Lunches must be nut-free. We have refrigerators; we can warm food but not cook i
     category: "Meals",
     updatedAt: "2026-09-28T15:00:00Z",
     updatedBy: "Chef Rosa Delgado",
-    content: `This menu repeats every week from Sept 28 through Nov 20, 2026. "Backup lunch" is what children receive if lunch is forgotten.
-MONDAY – Breakfast: oatmeal with bananas. Backup lunch: turkey & cheese quesadilla, black beans, cucumber. Snack: apple slices & cheddar.
-TUESDAY – Breakfast: whole-grain waffles & berries. Backup lunch: chicken noodle soup, whole-wheat roll, green beans. Snack: yogurt & granola (nut-free).
-WEDNESDAY – Breakfast: scrambled eggs & toast. Backup lunch: pasta with marinara and turkey meatballs, steamed broccoli. Snack: hummus & pita.
-THURSDAY – Breakfast: cereal & milk with pears. Backup lunch: bean & cheese burrito bowl with rice, corn, and mild salsa; vegetarian. Snack: banana & sunflower-butter toast.
-FRIDAY – Breakfast: yogurt parfait. Backup lunch: baked fish sticks, sweet potato wedges, peas. Snack: cheese crackers & grapes (cut in quarters).
-Vegetarian, dairy-free, and allergy-safe versions are available for any child with a diet on file.`,
+    content: `This menu repeats every week from Sept 28 through Nov 20, 2026. "Backup lunch" is what children receive if lunch is forgotten. Every item lists its allergens as (contains: ...); keep this format so allergies can be checked automatically.
+
+MONDAY
+- Breakfast: oatmeal made with milk, bananas (contains: milk)
+- Backup lunch: turkey & cheese quesadilla, black beans, cucumber (contains: milk, wheat)
+- Snack: apple slices & cheddar (contains: milk)
+TUESDAY
+- Breakfast: whole-grain waffles & berries (contains: wheat, egg, milk)
+- Backup lunch: chicken noodle soup, whole-wheat roll, green beans (contains: wheat, egg)
+- Snack: yogurt & nut-free granola (contains: milk, wheat)
+WEDNESDAY
+- Breakfast: scrambled eggs & toast (contains: egg, wheat, milk)
+- Backup lunch: pasta with marinara and turkey meatballs, steamed broccoli (contains: wheat, egg)
+- Snack: hummus & pita (contains: sesame, wheat)
+THURSDAY
+- Breakfast: cereal & milk with pears (contains: milk, wheat)
+- Backup lunch: bean & cheese burrito bowl with rice, corn, and mild salsa; vegetarian (contains: milk)
+- Snack: banana & sunflower-butter toast (contains: wheat)
+FRIDAY
+- Breakfast: yogurt parfait (contains: milk, wheat)
+- Backup lunch: baked fish sticks, sweet potato wedges, peas (contains: fish, wheat)
+- Snack: cheese crackers & grapes cut in quarters (contains: milk, wheat)
+
+For any child with an Allergy Action Plan on file, the kitchen serves an allergy-safe version of every item (for example, dairy-free cheese and oat milk for a milk allergy, or rice crackers for wheat). Vegetarian versions are available on request.`,
   },
   {
     id: "tours",
@@ -230,9 +247,10 @@ export const FAMILIES: Family[] = [
     label: "Jordan · parent of Maya (toddler)",
     childName: "Maya",
     room: "Bumblebees",
+    allergies: ["peanut", "milk"],
     context: `Parent: Jordan Chen (enrolled family).
 Child: Maya Chen, age 22 months, Bumblebees (toddler) room, full-time. Lead teacher: Ms. Sofia Alvarez.
-Allergy on file: peanuts (Allergy Action Plan on file; EpiPen kept at school).
+Allergies on file: peanut and milk/dairy (Allergy Action Plan on file; EpiPen kept at school).
 Authorized pickup: Jordan Chen, Wei Chen (co-parent), Lin Chen (grandmother).
 Billing: autopay on; balance $0.`,
   },
@@ -242,6 +260,7 @@ Billing: autopay on; balance $0.`,
     label: "Sam · parent of Leo (infant)",
     childName: "Leo",
     room: "Caterpillars",
+    allergies: [],
     context: `Parent: Sam Rivera (enrolled family).
 Child: Leo Rivera, age 7 months, Caterpillars (infant) room, part-time Mon/Wed/Fri. Teachers: Ms. Priya Nair and Ms. Grace Kim.
 Feeding: formula (parent-supplied). No allergies on file.
@@ -252,6 +271,7 @@ Billing: DC child care subsidy voucher; copay $115/month; balance $0.`,
     id: "prospect",
     parentName: "Taylor Brooks",
     label: "Taylor · prospective family",
+    allergies: [],
     context: `Prospective family, not enrolled. Name: Taylor Brooks. Has a 9-month-old and is exploring child care starting in early 2027.`,
   },
 ];

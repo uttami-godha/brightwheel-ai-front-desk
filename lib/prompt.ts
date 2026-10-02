@@ -11,6 +11,7 @@ How to answer:
 - Apply the policy to this parent's specifics instead of quoting it. Use <today> for date math and name the weekday and date ("the earliest Maya can return is Saturday... so Monday, Oct 5"). Use <family> to personalize: child's name, room, teacher, infant vs toddler rules, allergies. If an allergy on file is relevant (e.g., food), mention it proactively.
 - Health: state the center's rule and exactly how it applies; never diagnose, never suggest medication or doses. Suggest calling their pediatrician when it would help.
 - If the parent asks something time-sensitive for today (running late, forgot formula), include the front desk phone number.
+- Allergies: whenever your answer is about food from the center's menu, check each item's "(contains: ...)" allergens against the child's allergies on file. If an item contains one of their allergens, say so plainly by name (e.g. "it has cheese, which contains milk") and say what the menu says the kitchen does instead. Never call an item safe if it has no allergen information. If the parent mentions an allergy that is NOT on file, don't reassure them: explain the Allergy Action Plan requirement and use "partial".
 
 Status:
 - "answered": fully grounded in the knowledge.
@@ -24,6 +25,7 @@ Other fields:
 - sources: ids of the entries that directly support a fact stated in your answer (usually 1–2; the parent can tap them to read the exact text). Empty if none.
 - handoff_reason: for staff, one sentence on why you handed off (e.g. "No handbook entry covers summer programs."); empty string if answered.
 - suggested_actions: "book_tour" only when the parent asked about touring, visiting, or enrolling; "call_center" only when something is urgent today; otherwise empty.
+- menu_refs: every menu item (weekday + meal) your answer refers to or that the child would be served as a result of it (e.g. the forgotten-lunch backup). The app independently checks these against the child's allergies. Empty if the answer isn't about the menu.
 - follow_ups: 0–2 short questions this parent would plausibly ask next that the knowledge CAN answer, written in the parent's voice.
 
 Refer to staff by name or role ("${CENTER.directorFirst}", "the Director"), never with gendered pronouns.
@@ -41,8 +43,8 @@ export function buildKnowledgeBlock(entries: KnowledgeEntry[]): string {
   return `<knowledge>\n${body}\n</knowledge>`;
 }
 
-export function buildContextBlock(familyContext: string, now: Date): string {
-  const today = now.toLocaleString("en-US", {
+export function formatToday(now: Date): string {
+  return now.toLocaleString("en-US", {
     timeZone: CENTER.timezone,
     weekday: "long",
     year: "numeric",
@@ -51,7 +53,10 @@ export function buildContextBlock(familyContext: string, now: Date): string {
     hour: "numeric",
     minute: "2-digit",
   });
-  return `<today>${today} (${CENTER.timezoneLabel})</today>\n<family>\n${familyContext || "Unknown visitor (not signed in)."}\n</family>`;
+}
+
+export function buildContextBlock(familyContext: string, now: Date): string {
+  return `<today>${formatToday(now)} (${CENTER.timezoneLabel})</today>\n<family>\n${familyContext || "Unknown visitor (not signed in)."}\n</family>`;
 }
 
 export const ANSWER_SCHEMA = {
@@ -66,8 +71,21 @@ export const ANSWER_SCHEMA = {
     "handoff_reason",
     "suggested_actions",
     "follow_ups",
+    "menu_refs",
   ],
   properties: {
+    menu_refs: {
+      type: "array",
+      items: {
+        type: "object",
+        additionalProperties: false,
+        required: ["day", "meal"],
+        properties: {
+          day: { type: "string", enum: ["monday", "tuesday", "wednesday", "thursday", "friday"] },
+          meal: { type: "string", enum: ["breakfast", "backup_lunch", "snack"] },
+        },
+      },
+    },
     answer: { type: "string" },
     status: { type: "string", enum: ["answered", "partial", "needs_staff"] },
     topic: { type: "string" },

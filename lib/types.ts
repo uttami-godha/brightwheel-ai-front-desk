@@ -45,6 +45,23 @@ export type Engine = "claude" | "offline" | "emergency" | "error";
 
 export type SuggestedAction = "book_tour" | "call_center" | "message_staff";
 
+export type Weekday = "monday" | "tuesday" | "wednesday" | "thursday" | "friday";
+export type MealKey = "breakfast" | "backup_lunch" | "snack";
+
+export interface MenuRef {
+  day: Weekday;
+  meal: MealKey;
+}
+
+/** Deterministic allergen check of the menu items an answer refers to (lib/allergy.ts). */
+export interface AllergyCheck {
+  childName: string;
+  allergies: string[];
+  checked: { day: Weekday; meal: MealKey; item: string; contains: string[] | null; conflicts: string[] }[];
+  /** True when the model's answer text failed to mention a conflicting allergen. */
+  answerMissedConflict: boolean;
+}
+
 /** Shape the model is constrained to return (see app/api/ask/route.ts). */
 export interface FrontDeskAnswer {
   answer: string;
@@ -55,6 +72,9 @@ export interface FrontDeskAnswer {
   handoff_reason: string;
   suggested_actions: SuggestedAction[];
   follow_ups: string[];
+  menu_refs?: MenuRef[];
+  /** Added server-side after the model answers; never produced by the model. */
+  allergy_check?: AllergyCheck;
 }
 
 export interface Family {
@@ -65,6 +85,8 @@ export interface Family {
   context: string;
   childName?: string;
   room?: string;
+  /** Structured allergies on file (normalized names, e.g. "milk", "peanut"). */
+  allergies: string[];
 }
 
 export type ChatMessage =

@@ -13,7 +13,7 @@ import type {
   Ticket,
 } from "./types";
 
-const STORAGE_KEY = "juniper-front-desk-v1";
+const STORAGE_KEY = "juniper-front-desk-v2";
 
 interface State {
   knowledge: KnowledgeEntry[];
@@ -116,6 +116,8 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
           body: JSON.stringify({
             question,
             familyContext: family.context,
+            childName: family.childName,
+            allergies: family.allergies,
             knowledge: s.knowledge,
             history,
             now: demoNow(s.clock).toISOString(),
