@@ -18,12 +18,6 @@ Without a key, the app still runs in an **offline mode**. It quotes the closest 
 
 To check answer quality after changing the prompt or the handbook, run `npm run eval` while the dev server is up. It sends realistic parent questions, including edge cases, through the real API.
 
-## Deploy (Vercel)
-
-1. Import this GitHub repo at vercel.com/new (framework: Next.js, no settings to change).
-2. Add the environment variable `ANTHROPIC_API_KEY`.
-3. Deploy.
-
 ## Where things live
 
 Handbook: [lib/seed.ts](lib/seed.ts). 
