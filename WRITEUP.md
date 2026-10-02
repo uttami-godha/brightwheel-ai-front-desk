@@ -1,6 +1,6 @@
 # AI Front Desk: write-up
 
-**Prototype:** [hosted URL]  ·  **Code:** github.com/uttami-godha/brightwheel-ai-front-desk
+**Prototype:** https://brightwheel-ai-front-desk-uttami-godha.vercel.app/  ·  **Code:** github.com/uttami-godha/brightwheel-ai-front-desk
 Fictional center: Juniper Hill Early Learning, Washington, DC (ages 6 weeks–5). Director: Uttami Godha. All data is invented.
 
 **The pitch:** a front desk parents can trust and directors can teach. It answers routine questions instantly, with sources, and hands anything sensitive or unknown to the director. Each director reply becomes new knowledge.

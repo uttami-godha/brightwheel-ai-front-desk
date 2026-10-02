@@ -26,4 +26,9 @@ To check answer quality after changing the prompt or the handbook, run `npm run 
 
 ## Where things live
 
-Handbook: [lib/seed.ts](lib/seed.ts). Prompt and output schema: [lib/prompt.ts](lib/prompt.ts). Answer route: [app/api/ask/route.ts](app/api/ask/route.ts). Teach-from-reply route: [app/api/draft-entry/route.ts](app/api/draft-entry/route.ts). Emergency check: [lib/emergency.ts](lib/emergency.ts). UI: [components/](components/).
+Handbook: [lib/seed.ts](lib/seed.ts). 
+Prompt and output schema: [lib/prompt.ts](lib/prompt.ts). 
+Answer route: [app/api/ask/route.ts](app/api/ask/route.ts). 
+Teach-from-reply route: [app/api/draft-entry/route.ts](app/api/draft-entry/route.ts). 
+Emergency check: [lib/emergency.ts](lib/emergency.ts). 
+UI: [components/](components/).
