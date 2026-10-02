@@ -2,17 +2,15 @@
 
 **Prototype:** https://brightwheel-ai-front-desk-uttami-godha.vercel.app/
 
-A working prototype of an AI front desk for a child care center. The parent asks a question in the app and gets a specific, cited answer, or a graceful hand-off to the director. The director gets an inbox of hand-offs. Replying to one also teaches the front desk, so the next family gets the answer instantly.
+A working prototype of an AI front desk for a fictional child care center. The parent asks a question in the app and gets a specific, cited answer, or a graceful hand-off to the director. The director gets an inbox of hand-offs. Replying to one also teaches the front desk, so the next family gets the answer instantly.
 
-Everything here is fictional: the center (Juniper Hill Early Learning, Washington, DC; Director: Uttami Godha), the families, and the policies.
-
-**What it does and how it works:** see [WRITEUP.md](WRITEUP.md). It covers the parent and operator experiences, the architecture, and the design decisions.
+**What it does & how it works:** see [WRITEUP.md](WRITEUP.md). It covers the parent and operator experiences, the architecture, and the design decisions.
 
 ## Running it locally
 
 ```bash
 npm install
-cp .env.example .env.local   # add your ANTHROPIC_API_KEY
+cp .env.example .env.local   # add ANTHROPIC_API_KEY
 npm run dev
 ```
 
