@@ -1,23 +1,29 @@
 @import "tailwindcss";
 
+/*
+ * Palette follows brightwheel's brand variables (mybrightwheel.com):
+ * barnacle #EEF1FF, butterfly #B1BAFF, barney #6476FF, blurple #5463D6 (primary),
+ * blueberry #37458A, blackout #1E2549; neutrals air #F7F9FB, cloud #EBEFF4,
+ * charcoal #18181D. Tailwind's slate scale stands in for the cool grays.
+ */
 @theme inline {
   --font-sans: var(--font-geist-sans);
   --font-display: var(--font-fraunces);
 
-  --color-juniper-50: #eef6f2;
-  --color-juniper-100: #d5eadf;
-  --color-juniper-200: #acd4c1;
-  --color-juniper-300: #7fb9a0;
-  --color-juniper-500: #3f8a6e;
-  --color-juniper-600: #2f735b;
-  --color-juniper-700: #255d4a;
-  --color-juniper-800: #1d4a3b;
-  --color-juniper-900: #15362b;
+  --color-brand-50: #eef1ff;
+  --color-brand-100: #dfe4ff;
+  --color-brand-200: #b1baff;
+  --color-brand-300: #8f9bff;
+  --color-brand-500: #6476ff;
+  --color-brand-600: #5a6ce8;
+  --color-brand-700: #5463d6;
+  --color-brand-800: #37458a;
+  --color-brand-900: #1e2549;
 }
 
 body {
-  background: #f1efe9;
-  color: #1c1917;
+  background: #ebeff4;
+  color: #18181d;
   font-family: var(--font-geist-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
