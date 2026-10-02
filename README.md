@@ -1,5 +1,7 @@
 # AI Front Desk
 
+**Prototype:** https://brightwheel-ai-front-desk-uttami-godha.vercel.app/
+
 A working prototype of an AI front desk for a child care center. The parent asks a question in the app and gets a specific, cited answer, or a graceful hand-off to the director. The director gets an inbox of hand-offs. Replying to one also teaches the front desk, so the next family gets the answer instantly.
 
 Everything here is fictional: the center (Juniper Hill Early Learning, Washington, DC; Director: Uttami Godha), the families, and the policies.
